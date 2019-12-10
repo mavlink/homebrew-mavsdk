@@ -1,9 +1,10 @@
 class Mavsdk < Formula
   desc "API and library for MAVLink compatible systems written in C++11"
   homepage "https://mavsdk.mavlink.io"
-  url "https://github.com/mavlink/MAVSDK/archive/v0.22.0.zip"
-  sha256 "64ea52ed312eb0f6c25142e65bc2a8faed11ede3babd54f7b86d392f2a72ea89"
-  head "https://github.com/mavlink/MAVSDK.git"
+  url "https://github.com/mavlink/MAVSDK.git",
+    :tag => "v0.22.0",
+    :revision => "164e5fe719608898b009364dbd870846d5163bfc"
+
 
   depends_on "cmake" => :build
 
