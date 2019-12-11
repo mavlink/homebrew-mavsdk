@@ -18,7 +18,26 @@ class Mavsdk < Formula
   end
 
   test do
+    (testpath/"test.cpp").write <<~EOS
+      #include <mavsdk/mavsdk.h>
+      #include <mavsdk/plugins/info/info.h>
+      int main() {
+          mavsdk::Mavsdk mavsdk;
+          mavsdk.version();
+          mavsdk::System& system = mavsdk.system();
+          auto info = std::make_shared<mavsdk::Info>(system);
+          return 0;
+      }
+    EOS
+    system ENV.cxx, "-std=c++11", testpath/"test.cpp", "-o", "test",
+                  "-I#{include}/mavsdk",
+                  "-L#{lib}",
+                  "-lmavsdk",
+                  "-lmavsdk_info"
+    system "./test"
+
     assert_equal "Usage: backend_bin [-h | --help]",
                  shell_output("#{bin}/mavsdk_server --help").split("\n").first
   end
 end
+
